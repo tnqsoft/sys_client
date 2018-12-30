@@ -1,0 +1,2 @@
+"https://{default}/": { type: upstream, upstream: "sys-client:http" }
+"http://{default}/": { type: redirect, to: "https://{default}/" }
