@@ -3,156 +3,191 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
- * App\Entity\User
+ * User
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="users", indexes={
+ *     @ORM\Index(name="search_idx_username", columns={"username"}),
+ *     @ORM\Index(name="search_idx_email", columns={"email"}),
+ * })
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ *
+ * @UniqueEntity(fields={"email"}, message="EMAIL_IS_ALREADY_IN_USE")
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
-class User implements UserInterface, \Serializable
+class User extends BaseUser
 {
+    const ROLE_SUPER_ADMIN = "ROLE_SUPER_ADMIN";
+    const ROLE_ADMIN = "ROLE_ADMIN";
+    const ROLE_USER = "ROLE_USER";
+
     /**
-     * @ORM\Column(type="integer")
+     * To validate supported roles
+     *
+     * @var array
+     */
+    static public $ROLES_SUPPORTED = array(
+        self::ROLE_SUPER_ADMIN => self::ROLE_SUPER_ADMIN,
+        self::ROLE_ADMIN => self::ROLE_ADMIN,
+        self::ROLE_USER => self::ROLE_USER,
+    );
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @var string
+     *
+     * @Assert\NotBlank(message="FIELD_CAN_NOT_BE_EMPTY")
+     * @Assert\Email(
+     *     message = "INCORRECT_EMAIL_ADDRESS",
+     *     checkMX = true
+     * )
      */
-    private $username;
+    protected $email;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=100, nullable=true)
+     *
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "FIELD_LENGTH_TOO_SHORT",
+     *      maxMessage = "FIELD_LENGTH_TOO_LONG"
+     * )
      */
-    private $email;
+    private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=100, nullable=true)
+     *
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "FIELD_LENGTH_TOO_SHORT",
+     *      maxMessage = "FIELD_LENGTH_TOO_LONG"
+     * )
      */
-    private $salt;
+    private $lastName;
+
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean")
+     *
+     * @Assert\Type(
+     *     type="bool",
+     *     message="FIELD_MUST_BE_BOOLEAN_TYPE"
+     * )
      */
-    private $password;
+    private $deleted;
 
     /**
-     * @ORM\Column(name="is_active", type="boolean")
+     * User constructor.
      */
-    private $isActive;
-
     public function __construct()
     {
-        $this->isActive = true;
-        $this->salt = md5(uniqid(null, true));
+        parent::__construct();
+        $this->deleted = false;
     }
 
-    public function getId(){
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
+     * Set firstName
+     *
+     * @param string $firstName
+     *
      * @return User
      */
-    public function setEmail($email)
+    public function setFirstName($firstName)
     {
-        $this->email = $email;
+        $this->firstName = $firstName;
+
         return $this;
     }
 
     /**
-     * @inheritDoc
+     * Get firstName
+     *
+     * @return string
      */
-    public function getSalt()
+    public function getFirstName()
     {
-        return $this->salt;
+        return $this->firstName;
     }
 
-    public function setSalt($salt)
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     *
+     * @return User
+     */
+    public function setLastName($lastName)
     {
-        $this->salt = $salt;
+        $this->lastName = $lastName;
+
         return $this;
     }
 
     /**
-     * @inheritDoc
+     * Get lastName
+     *
+     * @return string
      */
-    public function getPassword()
+    public function getLastName()
     {
-        return $this->password;
+        return $this->lastName;
     }
 
-    public function setPassword($password)
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     *
+     * @return User
+     */
+    public function setDeleted($deleted)
     {
-        $this->password = $password;
+        $this->deleted = $deleted;
+
         return $this;
     }
 
     /**
-     * @inheritDoc
+     * Get deleted
+     *
+     * @return boolean
      */
-    public function getRoles()
+    public function getDeleted()
     {
-        return array('ROLE_USER');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function eraseCredentials()
-    {
-    }
-
-    /**
-     * @see \Serializable::serialize()
-     */
-    public function serialize()
-    {
-        return serialize(
-            array(
-                $this->id,
-            )
-        );
-    }
-
-    /**
-     * @see \Serializable::unserialize()
-     */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            ) = unserialize($serialized);
+        return $this->deleted;
     }
 }

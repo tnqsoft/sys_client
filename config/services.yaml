@@ -26,33 +26,3 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    platform.user.manager:
-        class: Doctrine\ORM\EntityManager
-        factory: "doctrine:getManagerForClass"
-        arguments: ['App\Entity\User']
-
-    platform.user.repository:
-        class: App\Repository\UserRepository
-        factory: "platform.user.manager:getRepository"
-        arguments: ['App\Entity\User']
-
-    platform.user.provider:
-        class: App\Provider\UserProvider
-        arguments: ['@platform.user.repository']
-
-#    FOS\OAuthServerBundle\Model\AccessTokenManagerInterface:
-#        alias: fos_oauth_server.access_token_manager.default
-#        public: true
-#
-#    FOS\OAuthServerBundle\Model\AuthCodeManagerInterface:
-#        alias: fos_oauth_server.auth_code_manager.default
-#        public: true
-#
-#    FOS\OAuthServerBundle\Model\ClientManagerInterface:
-#        alias: fos_oauth_server.client_manager.default
-#        public: true
-#
-#    FOS\OAuthServerBundle\Model\RefreshTokenManagerInterface:
-#        alias: fos_oauth_server.refresh_token_manager.default
-#        public: true

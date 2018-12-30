@@ -7,10 +7,10 @@ fos_oauth_server_token:
 fos_oauth_server_authorize:
   resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
 
-acme_oauth_server_auth_login:
-  path:  /oauth/v2/auth_login
-  controller: App\Controller\SecurityController::login
+fos_user:
+  resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-acme_oauth_server_auth_login_check:
-  path:  /oauth/v2/auth_login_check
-  controller: App\Controller\SecurityController::loginCheck
+controllers:
+  resource: '../../src/Controller/'
+  type: annotation
+  prefix: /api
