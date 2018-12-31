@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="jumbotron header-jumbotron text-center">
+            <p><img src="{{ asset('imgs/logo.png') }}"></p>
+            <h1 class="display-4">Symfony Single Sign On</h1>
+            <p class="lead">Base on Symfony framework and OAuth version 2</p>
+            {#<hr class="my-4">#}
+            {#<a class="btn btn-primary btn-lg" href="#" role="button">Documents</a>#}
+        </div>
+    </div>
+
+    {% include 'layout/footer.html.twig' %}
+{% endblock body %}

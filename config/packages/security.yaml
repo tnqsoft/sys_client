@@ -39,4 +39,5 @@ security:
     access_control:
         # You can omit this if /api can be accessed both authenticated and anonymously
         - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }
+        - { path: ^/admin, roles: [ IS_AUTHENTICATED_FULLY ] }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

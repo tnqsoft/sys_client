@@ -10,7 +10,15 @@ fos_oauth_server_authorize:
 fos_user:
   resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+#homepage_controller:
+#  path: /
+#  controller: App\Controller\DefaultController::index
+#
+#admin_controller:
+#  path: /admin
+#  controller: App\Controller\AdminController
+
 controllers:
   resource: '../../src/Controller/'
   type: annotation
-  prefix: /api
+  prefix: /

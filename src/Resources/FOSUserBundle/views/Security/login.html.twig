@@ -5,7 +5,10 @@
 {% block body %}
 
     <div class="card login-card">
-        <div class="card-header">Symfony Single Sign On</div>
+        <div class="card-header">
+            <span class="fas fa-cloud"></span>
+            Symfony Single Sign On
+        </div>
         <div class="card-body">
             {% if error %}
                 <div class="alert alert-danger" role="alert">
@@ -47,4 +50,5 @@
         </div>
     </div>
 
+    {% include 'layout/footer.html.twig' %}
 {% endblock body %}

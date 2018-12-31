@@ -10,14 +10,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * UserController.
  *
- * @Route("/user", name="api_user")
+ * @Route("/api/user", name="api_user.")
  */
 class UserController extends AbstractController
 {
     /**
      * Matches /user/info exactly
      *
-     * @Route("/info", name="api_user_info")
+     * @Route("/info", name="info")
      */
     public function userInfo()
     {

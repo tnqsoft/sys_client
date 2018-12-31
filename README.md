@@ -1,9 +1,9 @@
 
 ```
 php bin/console fos:oauth-server:create-client --redirect-uri="..." --grant-type="..."
-php bin/console fos:oauth-server:create-client --redirect-uri="http://example2.local" --grant-type="password" --grant-type="refresh_token" --grant-type="token" --grant-type="client_credentials" --grant-type="authorization_code" --grant-type="implicit" --grant-type="device_code"
+php bin/console fos:oauth-server:create-client --redirect-uri="http://shopmanager.local" --grant-type="password" --grant-type="refresh_token" --grant-type="token" --grant-type="client_credentials" --grant-type="authorization_code" --grant-type="implicit" --grant-type="device_code"
 php bin/console fos:user:create testuser test@example.com p@ssword
-php bin/console fos:user:create test1 tuanquynh0508@gmail.com 123456
+php bin/console fos:user:create test tuanquynh0508@gmail.com 123456
 
 php bin/console generate:bundle --namespace=cleverti/MySuperRestBundle --no-interaction
 php bin/console generate:controller --no-interaction --controller=cleverti\MySuperRestBundle:Rest
@@ -24,11 +24,8 @@ symfony serve
 - https://gist.github.com/GrzegorzBandur/a2a4e7f024233e1c0bb3b9a39571d68a
 
 # Data Test
-ClientId: 1_fbdkmdld8n400c8oss4k808okosko00k0s00sck44oww8okck
-ClientSecret: 40cc3vfs3okkg04g0w4g4ow4ooc08kc8oc4skogc40sks8c4o8
-
-ClientId: 2_39mfhvo2d9c0sc0c0wooos4ock8c4w8wwo40s0ck4owoww4ocw
-ClientSecret: 8e7eu67429ogco4skckg8kssc4ok80c4gswsk4c44044g0c8g
+ClientId: 1_1rxx03p717a8gsk4c4sswgk4cscggk4sgoks8w8okwc4okccgg
+ClientSecret: 2qanogpkahicgswo40kgwsc4g0oswc8k80skw0cc0g84cggwc
 
 Account: test1 / 123456
 
