@@ -1,0 +1,13 @@
+footer p {
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    margin: 5px;
+}
+
+.login-card {
+    width: 500px;
+    max-width: 98%;
+    margin: auto;
+    margin-top: 20px;
+}

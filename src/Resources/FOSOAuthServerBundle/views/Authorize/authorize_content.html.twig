@@ -1,13 +1,32 @@
-<h2>The application "{{ client.name }}" would like to connect to your account</h2>
+{% trans_default_domain 'FOSOAuthServerBundle' %}
 
-{{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize'), 'label_attr': {'class': 'fos_oauth_server_authorize'} }) }}
-<input class="btn" type="submit" name="rejected" value="{{ 'authorize.reject'|trans({}, 'FOSOAuthServerBundle') }}" />
-<input class="btn btn-primary" type="submit" name="accepted" value="{{ 'authorize.accept'|trans({}, 'FOSOAuthServerBundle') }}" />
+{% extends 'base.html.twig' %}
 
-{{ form_row(form.client_id) }}
-    {{ form_row(form.response_type) }}
-    {{ form_row(form.redirect_uri) }}
-    {{ form_row(form.state) }}
-    {{ form_row(form.scope) }}
-    {{ form_rest(form) }}
-</form>
+{% block body %}
+    <div class="card login-card">
+        <div class="card-header">Symfony Single Sign On</div>
+        <div class="card-body text-center">
+
+            <p>
+                <span class="fas fa-award fa-w-12 fa-9x"></span>
+            </p>
+
+            <blockquote class="blockquote">
+                The application "{{ client.name }}" would like to connect to your account
+            </blockquote>
+
+            {{ form_start(form, {'method': 'POST', 'action': path('fos_oauth_server_authorize'), 'label_attr': {'class': 'fos_oauth_server_authorize'} }) }}
+
+            <button type="submit" class="btn btn-danger" name="rejected">{{ 'authorize.reject'|trans }}</button>
+            <button type="submit" class="btn btn-success" name="accepted">{{ 'authorize.accept'|trans }}</button>
+
+            {{ form_row(form.client_id) }}
+            {{ form_row(form.response_type) }}
+            {{ form_row(form.redirect_uri) }}
+            {{ form_row(form.state) }}
+            {{ form_row(form.scope) }}
+            {{ form_rest(form) }}
+            </form>
+        </div>
+    </div>
+{% endblock body %}
