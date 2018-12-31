@@ -1,0 +1,4 @@
+/deploy export-ignore
+Capfile export-ignore
+Gemfile export-ignore
+Gemfile.lock export-ignore

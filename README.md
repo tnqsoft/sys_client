@@ -141,10 +141,10 @@ sudo service apache2 restart
         Undefine logdir
 </VirtualHost>
 
-
+# sudo vi /etc/nginx/conf.d/sso.conf
 server {
     server_name domain.tld www.domain.tld;
-    root /var/www/project/public;
+    root /var/www/sso/public;
 
     location / {
         # try to serve file directly, fallback to index.php
@@ -182,7 +182,7 @@ server {
         return 404;
     }
 
-    error_log /var/log/nginx/project_error.log;
-    access_log /var/log/nginx/project_access.log;
+    error_log /var/log/nginx/sso_error.log;
+    access_log /var/log/nginx/sso_access.log;
 }
 ```	

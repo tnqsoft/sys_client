@@ -22,3 +22,4 @@ Gemfile
 Gemfile.lock
 config/deploy.rb
 config/deploy/*
+.env.vps
